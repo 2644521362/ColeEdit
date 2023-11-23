@@ -268,7 +268,7 @@ left_column1, left_column2, right_column = st.columns([1,1,2])
   
 image_placeholder = right_column.empty()  
 align_options = ['left','center','right']
-text_options = sorted(os.listdir('./used_font'))
+text_options = sorted(os.listdir('./font'))
 options = {'text_align':align_options,
            'font':text_options}
 if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
