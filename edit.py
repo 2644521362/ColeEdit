@@ -103,7 +103,10 @@ def RenderText(canvas, textdict):
     paint.setAntiAlias(True)  
     paint.setColor(skia.ColorSetARGB(alpha, *color)) 
     flag, font = is_font_exists(fontname)
-    font = os.path.join('./.font',font)
+   
+    if fontname.endswith('.ttf'):
+        fontname=fontname[:-4]
+    # print(fontname)
     if not flag:
         print(f'The {fontname} is not exist, Use Arial rather.')
         fontname = 'Arial'
@@ -115,7 +118,7 @@ def RenderText(canvas, textdict):
         typeface = skia.Typeface.MakeFromName(fontname, skia.FontStyle.Normal())
     font = skia.Font(typeface, fontsize) 
     text = textdata['text']
-    # print(text)
+
     text = html.unescape(text)
     if capitalize == True or capitalize == 1 or capitalize == 'true' :
         text = text.upper() 
@@ -149,7 +152,7 @@ def RenderText(canvas, textdict):
         for line in wrapped_lines: 
             if line == '':
                 continue
-            # print('TEST : ',line)
+
             blob = skia.TextBlob.MakeFromString(line, font)  
             bounds = blob.bounds()
     
@@ -163,7 +166,6 @@ def RenderText(canvas, textdict):
             canvas.drawString(line, text_x, text_y+y_offset, font, paint)   
             y_offset += font.getSize()  
     return canvas 
-
 def Render2(image, textlist):
     width, height = image.size
     image_np = np.array(image)
@@ -203,7 +205,6 @@ def pipeline(dat,bg,obj):
             # item['opacity'] = 255
             textlist.append(item)
 
-    # print(textlist)
     img = Render2(bgobjimage, textlist)
     return img
    
@@ -230,7 +231,7 @@ else:
         data_orin = data.copy()
   
 # 创建一个字典来保存用户输入的数据  
-# print(data)
+
 # left_column, right_column = st.columns(2)  
 t_body = data['layers']['textlayer']['body']
 t_head = data['layers']['textlayer']['heading']
@@ -267,7 +268,7 @@ left_column1, left_column2, right_column = st.columns([1,1,2])
   
 image_placeholder = right_column.empty()  
 align_options = ['left','center','right']
-text_options = sorted(os.listdir('./font'))
+text_options = sorted(os.listdir('./used_font'))
 options = {'text_align':align_options,
            'font':text_options}
 if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
