@@ -22,7 +22,7 @@ import re
 
 # 从json文件中读取数据 
 def is_font_exists(font_name):
-    font_list = font_manager.findSystemFonts() 
+    font_list = os.listdir('./.font')
     for font in font_list:  
         if font_name.lower().replace(' ','-') in font.lower() or font_name.lower().replace(' ','') in font.lower():  
             return True, font  
@@ -103,6 +103,7 @@ def RenderText(canvas, textdict):
     paint.setAntiAlias(True)  
     paint.setColor(skia.ColorSetARGB(alpha, *color)) 
     flag, font = is_font_exists(fontname)
+    font = os.path.join('./.font',font)
     if not flag:
         print(f'The {fontname} is not exist, Use Arial rather.')
         fontname = 'Arial'
@@ -265,7 +266,8 @@ user_inputs = {}
 left_column1, left_column2, right_column = st.columns([1,1,2])  
   
 image_placeholder = right_column.empty()  
-  
+align_options = ['left','center','right']
+options = {'text_align':align_options}
 if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
     st.session_state.selected_item = selected_item  
     st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
@@ -273,7 +275,11 @@ if 'selected_item' not in st.session_state or st.session_state.selected_item != 
 image_placeholder.image(st.session_state.cur_result, caption='Generated Image.', use_column_width=True)  
 for key, value in selected_dict.items():  
     left_column1.text(f'{key}: {value}')  
-    selected_dict[key] = left_column2.text_input(f'New  {key}: ', value)  
+    if key in ['text_align']:
+        
+        selected_dict[key] = left_column2.selectbox(f'New  {key}: ', options[key], format_func=lambda x: x)  
+    else:
+        selected_dict[key] = left_column2.text_input(f'New  {key}: ', value)  
   
 if st.button('Submit'):  
 
