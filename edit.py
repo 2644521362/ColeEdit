@@ -114,7 +114,7 @@ def RenderText(canvas, textdict):
     else:
         pass
 
-    font_path = f"./font/{fontname}.ttf"  # 将此处替换为您的字体文件的绝对路径  
+    font_path = f"./font/{font}"  # 将此处替换为您的字体文件的绝对路径  
     # typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Bold())  
 
     if letter_bold == 1:
