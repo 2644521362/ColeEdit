@@ -22,7 +22,7 @@ import re
 
 # 从json文件中读取数据 
 def is_font_exists(font_name):
-    font_list = os.listdir('./.font')
+    font_list = os.listdir('./font')
     for font in font_list:  
         if font_name.lower().replace(' ','-') in font.lower() or font_name.lower().replace(' ','') in font.lower():  
             return True, font  
