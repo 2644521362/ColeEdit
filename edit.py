@@ -267,7 +267,9 @@ left_column1, left_column2, right_column = st.columns([1,1,2])
   
 image_placeholder = right_column.empty()  
 align_options = ['left','center','right']
-options = {'text_align':align_options}
+text_options = os.listdir('./font')
+options = {'text_align':align_options,
+           'font':text_options}
 if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
     st.session_state.selected_item = selected_item  
     st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
@@ -275,7 +277,7 @@ if 'selected_item' not in st.session_state or st.session_state.selected_item != 
 image_placeholder.image(st.session_state.cur_result, caption='Generated Image.', use_column_width=True)  
 for key, value in selected_dict.items():  
     left_column1.text(f'{key}: {value}')  
-    if key in ['text_align']:
+    if key in ['text_align','font']:
         
         selected_dict[key] = left_column2.selectbox(f'New  {key}: ', options[key], format_func=lambda x: x)  
     else:
