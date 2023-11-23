@@ -1,0 +1,125 @@
+{
+    "intension": "Create an Instagram advertisement for SVW Group's International Cat Day Festival at Reeves Hall. Encourage people to attend the festival by highlighting the chance to find a pet friend and offering lectures on pet protection and cat grooming workshops. Date and location information: Aug 8, 2018, London, Reeves Hall.",
+    "globalcaption": "The image features a large, orange tabby cat sitting on a blue background. The cat is wearing a collar and appears to be looking directly at the camera. The cat is the main focus of the image, and it is surrounded by a blue background that contrasts with its color.",
+    "canvas_width": 1080,
+    "canvas_height": 1080,
+    "category": "Instagram Ad",
+    "keywords": "animal, cat, pet, festival, event, entertainment, leisure, ad, instagram, ig, insta, advertisement",
+    "layers": {
+        "bglayer": {
+            "bgcaption": "The image features a blue background with a white line running horizontally across the middle. The white line is positioned slightly above the center of the image, creating a distinctive contrast between the blue background and the white line"
+        },
+        "objlayer": {
+            "flag": "<flag-1>",
+            "objcaption": "The image features a close-up of a large orange and white cat sitting on a white background. The cat is wearing a collar and appears to be looking directly at the camera. The background is plain and white, which helps to emphasize the cat's vibrant colors"
+        },
+        "textlayer": {
+            "heading": [
+                {
+                    "text": "",
+                    "font": "Anton",
+                    "font_size": 200.0,
+                    "text_align": "center",
+                    "capitalize": "false",
+                    "angle": 0.0,
+                    "letter_bold": 0,
+                    "letter_spacing": 0.0,
+                    "width": 417.65625,
+                    "height": 307.96875,
+                    "left": 594.84375,
+                    "top": 97.03125,
+                    "opacity": 255,
+                    "color": [
+                        255,
+                        255,
+                        255
+                    ]
+                }
+            ],
+            "subheading": [
+                {
+                    "text": "International",
+                    "font": "Anton",
+                    "font_size": 118.82,
+                    "text_align": "center",
+                    "capitalize": "true",
+                    "angle": 0.0,
+                    "letter_bold": 0,
+                    "letter_spacing": 0.0,
+                    "width": 772.03125,
+                    "height": 118.125,
+                    "left": 151.875,
+                    "top": 101.25,
+                    "opacity": 255,
+                    "color": [
+                        255,
+                        255,
+                        255
+                    ]
+                },
+                {
+                    "text": "Cat Day Festival",
+                    "font": "Anton",
+                    "font_size": 118.82,
+                    "text_align": "center",
+                    "capitalize": "true",
+                    "angle": 0.0,
+                    "letter_bold": 0,
+                    "letter_spacing": 0.0,
+                    "width": 772.03125,
+                    "height": 118.125,
+                    "left": 151.875,
+                    "top": 253.125,
+                    "opacity": 255,
+                    "color": [
+                        255,
+                        255,
+                        255
+                    ]
+                }
+            ],
+            "body": [
+                {
+                    "text": "SVW Group presents a day long event dedicated to our feline friends.",
+                    "font": "Montserrat",
+                    "font_size": 27.74,
+                    "text_align": "left",
+                    "capitalize": "false",
+                    "angle": 0.0,
+                    "letter_bold": 0,
+                    "letter_spacing": 0.0,
+                    "width": 426.09375,
+                    "height": 97.03125,
+                    "left": 603.28125,
+                    "top": 637.03125,
+                    "opacity": 255,
+                    "color": [
+                        255,
+                        255,
+                        255
+                    ]
+                },
+                {
+                    "text": "You can meet your next pet friend, and also enjoy lectures on",
+                    "font": "Montserrat",
+                    "font_size": 31.7,
+                    "text_align": "left",
+                    "capitalize": "false",
+                    "angle": 0.0,
+                    "letter_bold": 0,
+                    "letter_spacing": 0.0,
+                    "width": 426.09375,
+                    "height": 97.03125,
+                    "left": 603.28125,
+                    "top": 822.65625,
+                    "opacity": 255,
+                    "color": [
+                        255,
+                        255,
+                        255
+                    ]
+                }
+            ]
+        }
+    }
+}
