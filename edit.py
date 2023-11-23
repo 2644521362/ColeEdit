@@ -71,8 +71,8 @@ def get_image(bg_path, obj_path, example):
             objimg.size,
             skia.kRGBA_8888_ColorType)
         
-        # rect = skia.Rect.MakeXYWH(0, 0, canvas_width,canvas_height) #canvas_height)
-        rect = skia.Rect.MakeXYWH(650, 600, 400, 400) #canvas_width,canvas_height)
+        rect = skia.Rect.MakeXYWH(0, 0, canvas_width,canvas_height) #canvas_height)
+        # rect = skia.Rect.MakeXYWH(650, 600, 400, 400) #canvas_width,canvas_height)
         paint = skia.Paint(AntiAlias=True)
         
         with skia.AutoCanvasRestore(canvas):
@@ -214,6 +214,7 @@ pick_item_list_all = os.listdir('./resources/jsons')
 pick_item_list = []
 for item in pick_item_list_all:
     pick_item_list.append(item.split('.')[0])
+pick_item_list = sorted(pick_item_list)
 selected_item = st.selectbox('Select a item: ', options=pick_item_list)  
 selected_item_index = selected_item.split('.')[0] 
 saved_json_path = f'./workspace/{selected_item_index}_cur.json'  
@@ -282,6 +283,7 @@ if st.button('Submit'):
     data = new_json
     with open(saved_json_path, 'w') as f:  
         json.dump(new_json, f)  
+    
     basic_image = pipeline(new_json,f'./resources/pngs/{selected_item_index}_bg.png',f'./resources/pngs/{selected_item_index}_obj.png')  
     basic_image.resize((1024,1024))  
     st.session_state.cur_result = basic_image  
