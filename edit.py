@@ -102,10 +102,11 @@ def RenderText(canvas, textdict):
     paint = skia.Paint()  
     paint.setAntiAlias(True)  
     paint.setColor(skia.ColorSetARGB(alpha, *color)) 
-    flag, font = is_font_exists(fontname)
-   
     if fontname.endswith('.ttf'):
         fontname=fontname[:-4]
+    flag, font = is_font_exists(fontname)
+   
+    
     # print(fontname)
     if not flag:
         print(f'The {fontname} is not exist, Use Arial rather.')
