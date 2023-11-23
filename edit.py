@@ -113,10 +113,14 @@ def RenderText(canvas, textdict):
         fontname = 'Arial'
     else:
         pass
+
+    font_path = f"./font/{fontname}.ttf"  # 将此处替换为您的字体文件的绝对路径  
+    # typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Bold())  
+
     if letter_bold == 1:
-        typeface = skia.Typeface.MakeFromName(fontname, skia.FontStyle.Bold())
+        typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Bold())  
     else:
-        typeface = skia.Typeface.MakeFromName(fontname, skia.FontStyle.Normal())
+        typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Normal())
     font = skia.Font(typeface, fontsize) 
     text = textdata['text']
 
