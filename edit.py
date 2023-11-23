@@ -107,7 +107,7 @@ def RenderText(canvas, textdict):
     flag, font = is_font_exists(fontname)
    
     
-    # print(fontname)
+    print(fontname)
     if not flag:
         print(f'The {fontname} is not exist, Use Arial rather.')
         fontname = 'Arial'
