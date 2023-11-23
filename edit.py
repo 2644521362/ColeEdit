@@ -237,15 +237,26 @@ t_subhead = data['layers']['textlayer']['subheading']
 totaly_editable = len(t_body)+len(t_head)+len(t_subhead)
 data_new = {}
 for idx,body in enumerate(t_body):
+    if len(body['text'])<=1:
+        continue
     data_new.update({f"body-{idx}":body})
 for idx,body in enumerate(t_head):
+    if len(body['text'])<=1:
+        continue
     data_new.update({f"heading-{idx}":body})
 for idx,body in enumerate(t_subhead):
+    if len(body['text'])<=1:
+        continue
     data_new.update({f"subheading-{idx}":body})
 
+data_new_show_list = []
+for item in data_new:
+    preview_text = data_new[item]['text'].split(' ')[0]
+    data_new_show_list.append(item+" ("+preview_text)
 
-selected_name = st.selectbox('Select a name: ', options=list(data_new.keys()))  
-  
+data_new_show_list = sorted(data_new_show_list)
+selected_name = st.selectbox('Select a name: ', options=data_new_show_list)  
+selected_name=selected_name.split(' (')[0]
 selected_dict = data_new[selected_name]  
   
 user_inputs = {}  
