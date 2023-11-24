@@ -233,7 +233,7 @@ saved_json_path = f'./workspace/{selected_item_index}_cur.json'
 
 if 'selected_item' in st.session_state and st.session_state.selected_item == selected_item:
     if  'cur_json' in st.session_state and st.session_state.cur_json !=-1 :
-        data = st.session_state
+        data = st.session_state.cur_json
     else: 
         with open(f'./resources/jsons/{selected_item_index}.json', 'r') as f:    
             data = json.load(f)  
