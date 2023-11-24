@@ -102,25 +102,30 @@ def RenderText(canvas, textdict):
     paint = skia.Paint()  
     paint.setAntiAlias(True)  
     paint.setColor(skia.ColorSetARGB(alpha, *color)) 
+    # if letter_bold == 1:  
+    #     paint.setFakeBoldText(True) 
     if fontname.endswith('.ttf'):
         fontname=fontname[:-4]
     flag, font = is_font_exists(fontname)
    
     
-    print(fontname)
+    # print(fontname)
     if not flag:
         print(f'The {fontname} is not exist, Use Arial rather.')
         fontname = 'Arial'
     else:
         pass
 
-    font_path = f"./font/{font}"  # 将此处替换为您的字体文件的绝对路径  
+    if flag:
+        font_path = f"./font/{font}"  # 将此处替换为您的字体文件的绝对路径  
+    else:
+        font_path = f"./font/ABeeZee-Italic.ttf"
     # typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Bold())  
 
     if letter_bold == 1:
-        typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Bold())  
+        typeface = skia.Typeface.MakeFromFile(font_path)  
     else:
-        typeface = skia.Typeface.MakeFromFile(font_path, skia.FontStyle.Normal())
+        typeface = skia.Typeface.MakeFromFile(font_path)
     font = skia.Font(typeface, fontsize) 
     text = textdata['text']
 
@@ -225,16 +230,24 @@ pick_item_list = sorted(pick_item_list)
 selected_item = st.selectbox('Select a item: ', options=pick_item_list)  
 selected_item_index = selected_item.split('.')[0] 
 saved_json_path = f'./workspace/{selected_item_index}_cur.json'  
-if os.path.exists(saved_json_path):  
-    # 如果存在，就加载它  
-    with open(saved_json_path, 'r') as f:  
-        data = json.load(f)  
+
+if 'selected_item' in st.session_state and st.session_state.selected_item == selected_item:
+    if  'cur_json' in st.session_state and st.session_state.cur_json !=-1 :
+        data = st.session_state
+    else: 
+        with open(f'./resources/jsons/{selected_item_index}.json', 'r') as f:    
+            data = json.load(f)  
+        
 else:  
-    # 如果不存在，就加载默认的json  
+        # 如果不存在，就加载默认的json  
     with open(f'./resources/jsons/{selected_item_index}.json', 'r') as f:    
         data = json.load(f)  
         data_orin = data.copy()
-  
+    st.session_state.cur_json=-1
+    st.session_state.selected_item = selected_item  
+    st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
+    st.session_state.cur_result.resize((1024,1024))    
+        
 # 创建一个字典来保存用户输入的数据  
 
 # left_column, right_column = st.columns(2)  
@@ -274,18 +287,28 @@ left_column1, left_column2, right_column = st.columns([1,1,2])
 image_placeholder = right_column.empty()  
 align_options = ['left','center','right']
 text_options = sorted(os.listdir('./font'))
+text_dict = {}
+for idx,text in enumerate(text_options):
+    text_dict.update({text:idx})
 options = {'text_align':align_options,
            'font':text_options}
-if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
-    st.session_state.selected_item = selected_item  
-    st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
-    st.session_state.cur_result.resize((1024,1024))    
+# if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
+#     st.session_state.selected_item = selected_item
+#     st.session_state.cur_json = -1  
+#     st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
+#     st.session_state.cur_result.resize((1024,1024))    
+    
+
 image_placeholder.image(st.session_state.cur_result, caption='Generated Image.', use_column_width=True)  
 for key, value in selected_dict.items():  
     left_column1.text(f'{key}: {value}')  
     if key in ['text_align','font']:
-        
-        selected_dict[key] = left_column2.selectbox(f'New  {key}: ', options[key], format_func=lambda x: x)  
+        if key == 'font':
+            cur_font = selected_dict['font']
+            flag,fontname = is_font_exists(cur_font)
+            selected_dict[key] = left_column2.selectbox(f'New  {key}: ', options[key],index=text_dict[fontname],format_func=lambda x: x)  
+        else:
+            selected_dict[key] = left_column2.selectbox(f'New  {key}: ', options[key],format_func=lambda x: x)  
     else:
         selected_dict[key] = left_column2.text_input(f'New  {key}: ', value)  
   
@@ -305,11 +328,10 @@ if st.button('Submit'):
     text_type = selected_name.split('-')[0]
     text_index = selected_name.split('-')[1]
     new_json['layers']['textlayer'][text_type][int(text_index)]=selected_dict
-    data = new_json
-    with open(saved_json_path, 'w') as f:  
-        json.dump(new_json, f)  
-    
+    # with open(saved_json_path, 'w') as f:  
+    #     json.dump(new_json, f)  
     basic_image = pipeline(new_json,f'./resources/pngs/{selected_item_index}_bg.png',f'./resources/pngs/{selected_item_index}_obj.png')  
     basic_image.resize((1024,1024))  
     st.session_state.cur_result = basic_image  
+    st.session_state.cur_json = new_json
     image_placeholder.image(st.session_state.cur_result, caption='Generated Image.', use_column_width=True) 
