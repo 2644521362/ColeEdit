@@ -222,7 +222,7 @@ def pipeline(dat,bg,obj):
 st.set_page_config(layout='wide')  
 
 
-pick_item_list_all = os.listdir('./resources/jsons')
+pick_item_list_all = os.listdir('./new_resources/jsons')
 pick_item_list = []
 for item in pick_item_list_all:
     pick_item_list.append(item.split('.')[0])
@@ -235,17 +235,17 @@ if 'selected_item' in st.session_state and st.session_state.selected_item == sel
     if  'cur_json' in st.session_state and st.session_state.cur_json !=-1 :
         data = st.session_state.cur_json
     else: 
-        with open(f'./resources/jsons/{selected_item_index}.json', 'r') as f:    
+        with open(f'./new_resources/jsons/{selected_item_index}.json', 'r') as f:    
             data = json.load(f)  
         
 else:  
         # 如果不存在，就加载默认的json  
-    with open(f'./resources/jsons/{selected_item_index}.json', 'r') as f:    
+    with open(f'./new_resources/jsons/{selected_item_index}.json', 'r') as f:    
         data = json.load(f)  
         data_orin = data.copy()
     st.session_state.cur_json=-1
     st.session_state.selected_item = selected_item  
-    st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
+    st.session_state.cur_result = Image.open(f'./new_resources/init_pngs/{selected_item_index}.png')  
     st.session_state.cur_result.resize((1024,1024))    
         
 # 创建一个字典来保存用户输入的数据  
@@ -295,7 +295,7 @@ options = {'text_align':align_options,
 # if 'selected_item' not in st.session_state or st.session_state.selected_item != selected_item:  
 #     st.session_state.selected_item = selected_item
 #     st.session_state.cur_json = -1  
-#     st.session_state.cur_result = Image.open(f'./resources/init_pngs/{selected_item_index}.png')  
+#     st.session_state.cur_result = Image.open(f'./new_resources/init_pngs/{selected_item_index}.png')  
 #     st.session_state.cur_result.resize((1024,1024))    
     
 
@@ -330,7 +330,7 @@ if st.button('Submit'):
     new_json['layers']['textlayer'][text_type][int(text_index)]=selected_dict
     # with open(saved_json_path, 'w') as f:  
     #     json.dump(new_json, f)  
-    basic_image = pipeline(new_json,f'./resources/pngs/{selected_item_index}_bg.png',f'./resources/pngs/{selected_item_index}_obj.png')  
+    basic_image = pipeline(new_json,f'./new_resources/pngs/{selected_item_index}_bg.png',f'./new_resources/pngs/{selected_item_index}_obj.png')  
     basic_image.resize((1024,1024))  
     st.session_state.cur_result = basic_image  
     st.session_state.cur_json = new_json
